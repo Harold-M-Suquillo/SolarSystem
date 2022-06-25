@@ -39,7 +39,7 @@ export class Planets{
         this.Earth = new THREE.Mesh(
           new THREE.SphereGeometry( .2, 25, 25 ), 
           new THREE.MeshBasicMaterial({ map:EarthTexture}));
-        this.Earth.position.set(3.1,2,8);
+        this.Earth.position.set(-2,0,2);
         scene.add(this.Earth);
 
         const MarsTexture = new THREE.TextureLoader().load('./img/Mars.jpeg');
@@ -69,7 +69,6 @@ export class Planets{
           new THREE.MeshBasicMaterial({ map:UranusTexture}));
         this.Uranus.position.set(-1,0,-7);
         scene.add(this.Uranus);
-
 
         // RINGS
         const RingTexture = new THREE.TextureLoader().load('./img/Rings.png');

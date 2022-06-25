@@ -25,8 +25,10 @@ class Scene{
 
   // Create, position, and add camera to scene
   _CreateCamera(scene){
-    const camera = new THREE.OrthographicCamera(-(this.sizes.width / this.sizes.height),this.sizes.width / this.sizes.height, 1, -1, 0.1, 1000);
-    //camera.position.z = 10;
+    //const camera = new THREE.OrthographicCamera(-(this.sizes.width / this.sizes.height),this.sizes.width / this.sizes.height, 1, -1, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
+    camera.position.z = 10;
+    camera.position.y = 3
     this.scene.add(camera);
     return camera;
   }
@@ -42,7 +44,9 @@ class Scene{
     const controls = new OrbitControls(this.camera, this.canvas);
     //controls.autoRotate = true;
     controls.enableDamping;
-    this.camera.position.z = 40;
+    controls.enablePan = false;
+    controls.minDistance = 1.7;
+    controls.maxDistance = 20;
     //this.camera.position.set( 0, 14, 1);
     return controls;
 
@@ -64,9 +68,13 @@ class Scene{
     this.sizes.width = window.innerWidth;
     this.sizes.height = window.innerHeight;
 
+
+    // ASPECT CAMERA
+    this.camera.aspect = this.sizes.width / this.sizes.height;
+
     // Update the Camera
-    this.camera.left =  -(this.sizes.width / this.sizes.height);
-    this.camera.right = this.sizes.width / this.sizes.height;
+    //this.camera.left =  -(this.sizes.width / this.sizes.height);
+    //this.camera.right = this.sizes.width / this.sizes.height;
     this.camera.updateProjectionMatrix();
 
     // Update renderer
@@ -92,5 +100,5 @@ class Scene{
 
 // Create the Scene
 let SolarSystem = new Scene();
-//SolarSystem.tick();
+SolarSystem.tick();
 
