@@ -7,7 +7,7 @@ export class Planets{
         this.Earth = null;
         this.Mars = null;
         this.Jupiter = null;
-        this.Saturn = null;
+        this.Saturn = null; // Saturn = {planet,rings}
         this.Uranus = null;
         this.Neptune = null;
         this._initPlanets(scene);
@@ -39,7 +39,7 @@ export class Planets{
         this.Earth = new THREE.Mesh(
           new THREE.SphereGeometry( .2, 25, 25 ), 
           new THREE.MeshBasicMaterial({ map:EarthTexture}));
-        this.Earth.position.set(3.1,0,8);
+        this.Earth.position.set(3.1,2,8);
         scene.add(this.Earth);
 
         const MarsTexture = new THREE.TextureLoader().load('./img/Mars.jpeg');
@@ -58,12 +58,34 @@ export class Planets{
 
         const SaturnTexture = new THREE.TextureLoader().load('./img/Saturn.jpeg');
         this.Saturn = new THREE.Mesh(
-          new THREE.SphereGeometry( .2, 25, 25 ), 
+          new THREE.SphereGeometry( .1, 25, 25 ), 
           new THREE.MeshBasicMaterial({ map:SaturnTexture}));
-        this.Saturn.position.set(-3,0,-7);
+        this.Saturn.position.set(1,1,1);
         scene.add(this.Saturn);
-    }
 
+        const UranusTexture = new THREE.TextureLoader().load('./img/Saturn.jpeg');
+        this.Uranus = new THREE.Mesh(
+          new THREE.SphereGeometry( .2, 25, 25 ), 
+          new THREE.MeshBasicMaterial({ map:UranusTexture}));
+        this.Uranus.position.set(-1,0,-7);
+        scene.add(this.Uranus);
+
+
+        // RINGS
+        const RingTexture = new THREE.TextureLoader().load('./img/Rings.png');
+        const rings = new THREE.RingGeometry(.15, .1, 30, 1, 0, 6.28318);
+        const material = new THREE.MeshBasicMaterial( { map: RingTexture, side: THREE.DoubleSide } );
+        const mesh = new THREE.Mesh( rings, material );
+        mesh.position.set(1,1,1);
+        scene.add( mesh );
+
+        const NeptuneTexture = new THREE.TextureLoader().load('./img/Neptune.jpeg');
+        this.Neptune = new THREE.Mesh(
+          new THREE.SphereGeometry( .2, 25, 25 ), 
+          new THREE.MeshBasicMaterial({ map:NeptuneTexture}));
+        this.Neptune.position.set(-1,0,5);
+        scene.add(this.Neptune);
+    }
 }
 
 

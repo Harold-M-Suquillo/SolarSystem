@@ -3,102 +3,94 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {Planets} from '/js/planets.js';
 
-// Canvas
-const canvas = document.querySelector('canvas.webgl');
-
-// Scene
-const scene = new THREE.Scene();
-
-// Create planets
-const planets = new Planets(scene);
-
-
-
-
-
-
-
-
-
-
-
-
+class Scene{
+  constructor(){
+    this.sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+    this.canvas = document.querySelector('canvas.webgl');
+    this.scene = new THREE.Scene();
+    this.planets = new Planets(this.scene);                    // init Planets
+    this.camera = this._CreateCamera();
+    this.controls = this._CreateControls();
+    this.renderer = this._CreateRenderer();
+ 
+    // Create AxesHelper
+    this._CreateAxesHelper();
+    // Resize screen Event
+    window.addEventListener('resize', this._ResizeScreen.bind(this));
+  }
 
 
+  // Create, position, and add camera to scene
+  _CreateCamera(scene){
+    const camera = new THREE.OrthographicCamera(-(this.sizes.width / this.sizes.height),this.sizes.width / this.sizes.height, 1, -1, 0.1, 1000);
+    //camera.position.z = 10;
+    this.scene.add(camera);
+    return camera;
+  }
 
 
+  // Create and add AxesHelper to scene
+  _CreateAxesHelper(){
+    this.scene.add(new THREE.AxesHelper(1.3));
+  }
+
+  // Create and configure controls
+  _CreateControls(){
+    const controls = new OrbitControls(this.camera, this.canvas);
+    //controls.autoRotate = true;
+    controls.enableDamping;
+    this.camera.position.z = 40;
+    //this.camera.position.set( 0, 14, 1);
+    return controls;
+
+  }
 
 
-//AxesHelper
-const axesHelper = new THREE.AxesHelper(1.3);
-scene.add(axesHelper);
+  // Create and COnfigure renderer
+  _CreateRenderer(){
+    const renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas
+    })
+    renderer.setSize(this.sizes.width, this.sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    return renderer;
+  }
 
+  _ResizeScreen(event){
+    // Update sizes
+    this.sizes.width = window.innerWidth;
+    this.sizes.height = window.innerHeight;
 
-// Screen Size
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight
-}
+    // Update the Camera
+    this.camera.left =  -(this.sizes.width / this.sizes.height);
+    this.camera.right = this.sizes.width / this.sizes.height;
+    this.camera.updateProjectionMatrix();
 
-// Event listener to resize screen
-window.addEventListener('resize', e =>{
-  // Update sizes
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
+    // Update renderer
+    this.renderer.setSize(this.sizes.width, this.sizes.height)
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-  // Update the Camera
-  camera.left =  -(sizes.width / sizes.height);
-  camera.right = sizes.width / sizes.height;
-  camera.updateProjectionMatrix();
-
-
-
-  // Update renderer
-  renderer.setSize(sizes.width, sizes.height)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-});
-
-// Camera
-//const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-
-const camera = new THREE.OrthographicCamera(-(sizes.width / sizes.height),sizes.width / sizes.height, 1, -1, 0.1, 100);
-camera.position.z = 10;
-scene.add(camera)
-
-
-const controls = new OrbitControls(camera, canvas);
-//controls.autoRotate = true;
-controls.enableDamping
-
-
-
-
-// Renderer
-const renderer = new THREE.WebGLRenderer({
-  canvas: canvas
-})
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-
-
-
-
-
-const clock = new THREE.Clock()
-const tick = () =>
-{
-  const elapsedTime = clock.getElapsedTime()
-  controls.update();
-
-  //camera.lookAt(planets.Earth.position);
-
+  }
+  tick(){
+    this.controls.update();
+  
+    //planets.Earth.position.y = -4;
+    //this.camera.lookAt(this.planets.Earth.position);
+  
     // Render
-  renderer.render(scene, camera)
+    this.renderer.render(this.scene, this.camera);
+  
+    // Call tick again on the next frame
+    window.requestAnimationFrame(this.tick.bind(this));
+  }
 
-  // Call tick again on the next frame
-  window.requestAnimationFrame(tick)
+
 }
 
+// Create the Scene
+let SolarSystem = new Scene();
+//SolarSystem.tick();
 
-tick()
