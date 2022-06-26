@@ -11,7 +11,7 @@ class Scene{
     };
     this.canvas = document.querySelector('canvas.webgl');
     this.scene = new THREE.Scene();
-    this.planets = new Planets(this.scene);                    // init Planets
+    this.planets = new Planets(this.scene);                    // init Planets and orbits
     this.camera = this._CreateCamera();
     this.controls = this._CreateControls();
     this.renderer = this._CreateRenderer();
@@ -20,13 +20,15 @@ class Scene{
     this._CreateAxesHelper();
     // Resize screen Event
     window.addEventListener('resize', this._ResizeScreen.bind(this));
+
+
   }
 
 
   // Create, position, and add camera to scene
   _CreateCamera(scene){
     //const camera = new THREE.OrthographicCamera(-(this.sizes.width / this.sizes.height),this.sizes.width / this.sizes.height, 1, -1, 0.1, 1000);
-    const camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
+    const camera = new THREE.PerspectiveCamera(30, this.sizes.width / this.sizes.height, 0.1, 50)
     camera.position.z = 10;
     camera.position.y = 4;
     camera.position.x = -3;
@@ -44,11 +46,11 @@ class Scene{
   // Create and configure controls
   _CreateControls(){
     const controls = new OrbitControls(this.camera, this.canvas);
-    controls.autoRotate = true;
+    controls.autoRotate = true;                                     // ----------------------------------------
     controls.enableDamping;
     //controls.enablePan = false;
-    controls.minDistance = 1.7;
-    controls.maxDistance = 20;
+    controls.minDistance = 5;
+    controls.maxDistance = 35;
     //this.camera.position.set( 0, 4, 10);      // The default position for the camera
     return controls;
 

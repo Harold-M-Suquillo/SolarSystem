@@ -1,170 +1,200 @@
 import * as THREE from 'three';
 
 export class Planets{
-	
+	/*
+	Planet = {
+		Planet: Planet Object,
+		Orbit: Orbit Object
+	}
+	Saturn has an addition 
+		Rings: Rings Object
+	*/
+
 	constructor(scene){
-		this.Sun = null;
-		this.Mercury = null;
-		this.Earth = null;
-		this.Mars = null;
-		this.Jupiter = null;
-		this.Saturn = null; // Saturn = {planet,rings}
-		this.Uranus = null;
-		this.Neptune = null;
+		this.Sun = {};
+		this.Mercury = {};
+		this.Venus = {};
+		this.Earth = {};
+		this.Mars = {};
+		this.Jupiter = {};
+		this.Saturn = {};
+		this.Uranus = {};
+		this.Neptune = {};
 		this._initPlanets(scene);
+   	this._CreatePlanetaryOrbits(scene);
 	}
 
     // Create and add planets to scene
 	_initPlanets(scene){
 		const textureLoader = new THREE.TextureLoader();
 		const SunTexture = textureLoader.load('./img/sun.jpeg');    // Done
-		this.Sun = new THREE.Mesh(
+		this.Sun.Planet = new THREE.Mesh(
 			new THREE.SphereGeometry( 1.5, 32, 32 ), 
 			new THREE.MeshBasicMaterial({ map:SunTexture}));
-		scene.add(this.Sun);
+		scene.add(this.Sun.Planet);
 
       const MercuryTexture = textureLoader.load('./img/Mercury.jpeg');    // Done
-      this.Mercury = new THREE.Mesh(
-        new THREE.SphereGeometry( .1, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:MercuryTexture}));
-      this.Mercury.position.set(1,0,3.9);
-      scene.add(this.Mercury);
-
-      console.log(this.Mercury.position)
-
-
-      const geometry = new THREE.TorusGeometry( 4.026, 0.01, 3, 50 );
-      const material = new THREE.MeshBasicMaterial( { color: 0xB2BEB5 } );
-      const torus = new THREE.Mesh( geometry, material );
-      scene.add( torus );
-      torus.rotation.x = Math.PI/2;
-
-
-
-
-
-
-
-
-
-
+      this.Mercury.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .1, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:MercuryTexture}));
+      this.Mercury.Planet.position.set(1,0,3.2);
+      scene.add(this.Mercury.Planet);
 
       const VenusTexture = textureLoader.load('./img/Venus.jpeg');    // Done
-      this.Venus = new THREE.Mesh(
-        new THREE.SphereGeometry( .2, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:VenusTexture}));
-        this.Venus.position.set(2.1,0,-3.9);
-      scene.add(this.Venus);
+      this.Venus.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .2, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:VenusTexture}));
+      	this.Venus.Planet.position.set(2.1,0,-3.9);
+      scene.add(this.Venus.Planet);
+
 
       const EarthTexture = textureLoader.load('./img/Earth.jpeg');    // Done
-      this.Earth = new THREE.Mesh(
-        new THREE.SphereGeometry( .23, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:EarthTexture}));
-      this.Earth.position.set(-5,0,-2);
-      scene.add(this.Earth);
+      this.Earth.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .23, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:EarthTexture}));
+      this.Earth.Planet.position.set(-5,0,-2);
+      scene.add(this.Earth.Planet);
 
       const MarsTexture = textureLoader.load('./img/Mars.jpeg');        // Done
-      this.Mars = new THREE.Mesh(
-        new THREE.SphereGeometry( .12, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:MarsTexture}));
-      this.Mars.position.set(6,0,-3.2);
-      scene.add(this.Mars);
+      this.Mars.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .12, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:MarsTexture}));
+      this.Mars.Planet.position.set(6,0,-3.2);
+      scene.add(this.Mars.Planet);
 
       const JupiterTexture = textureLoader.load('./img/Jupiter.jpeg');  // Done
-      this.Jupiter = new THREE.Mesh(
-        new THREE.SphereGeometry( .45, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:JupiterTexture}));
-      this.Jupiter.position.set(-5.5,0,5.5);
-      scene.add(this.Jupiter);
+      this.Jupiter.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .45, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:JupiterTexture}));
+      this.Jupiter.Planet.position.set(-5.5,0,5.5);
+      scene.add(this.Jupiter.Planet);
 
       const SaturnTexture = textureLoader.load('./img/Saturn.jpeg');    // Done
-      this.Saturn = new THREE.Mesh(
-        new THREE.SphereGeometry( .35, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:SaturnTexture}));
-      this.Saturn.position.set(-5.4,0,-5.8);
-      scene.add(this.Saturn);
+      this.Saturn.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .4, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:SaturnTexture}));
+      this.Saturn.Planet.position.set(-6.5,0,-7);
+      scene.add(this.Saturn.Planet);
+		// Create Saturns Rings
+		this.Saturn.Rings = this._CreateSaturnRings(scene);
+
+		console.log(this);
+
 
       const UranusTexture = textureLoader.load('./img/Uranus.jpeg');
-      this.Uranus = new THREE.Mesh(
-        new THREE.SphereGeometry( .2, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:UranusTexture}));
-      this.Uranus.position.set(-1,0,-7);
-      scene.add(this.Uranus);
+      this.Uranus.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .5, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:UranusTexture}));
+      this.Uranus.Planet.position.set(3,0,10.5);
+      scene.add(this.Uranus.Planet);
 
 
-      const rings = this._CreateRings();
-      scene.add(rings);
-
-
-
-
-
-
-
-
-
-
-
-
-
-      //const mesh = new THREE.Mesh(geometry, material);
-
-
-
-
-
-
-
-
-
-      //scene.add( mesh );
-
-
-
-
-
-
-
-
+      
+      
       const NeptuneTexture = textureLoader.load('./img/Neptune.jpeg');
-      this.Neptune = new THREE.Mesh(
-        new THREE.SphereGeometry( .2, 25, 25 ), 
-        new THREE.MeshBasicMaterial({ map:NeptuneTexture}));
-      this.Neptune.position.set(-1,0,5);
-      scene.add(this.Neptune);
+      this.Neptune.Planet = new THREE.Mesh(
+      	new THREE.SphereGeometry( .55, 25, 25 ), 
+      	new THREE.MeshBasicMaterial({ map:NeptuneTexture}));
+      this.Neptune.Planet.position.set(12,0,-5);
+      scene.add(this.Neptune.Planet);
     }
 
-    _CreateRings(){
+
+
+
+
+
+
+    _CreateSaturnRings(scene){
       const texture = new THREE.TextureLoader().load(
-        "https://i.postimg.cc/zz7Gr430/saturn-rings-top.png"
+      	"https://i.postimg.cc/zz7Gr430/saturn-rings-top.png"
       );
     
       const material = new THREE.MeshBasicMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-        transparent: true
+      	map: texture,
+      	side: THREE.DoubleSide,
+      	transparent: true
       });
     
       const geometry = new THREE.RingBufferGeometry(3, 5, 64);
       var pos = geometry.attributes.position;
       var v3 = new THREE.Vector3();
       for (let i = 0; i < pos.count; i++) {
-        v3.fromBufferAttribute(pos, i);
-        geometry.attributes.uv.setXY(i, v3.length() < 4 ? 0 : 1, 1);
+      	v3.fromBufferAttribute(pos, i);
+      	geometry.attributes.uv.setXY(i, v3.length() < 4 ? 0 : 1, 1);
       }
     
       const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(-5.4,0,-5.8);
+      mesh.position.set(-6.5,0,-7);
       mesh.scale.set(.1,.1,.1)
 
       var axis = new THREE.Vector3(1,1,1);
       mesh.rotateOnAxis(axis, 5);
-
-
-
-
-      //mesh.rotateOnAxis( 1, 3);
+		scene.add(mesh);
       return mesh;
+
+    }
+
+    _CreatePlanetaryOrbits(scene){
+      this.Mercury.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 3.3526, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Mercury.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Mercury.Orbit);
+
+
+		this.Venus.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 4.4294, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Venus.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Venus.Orbit);
+
+		this.Earth.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 5.385, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Earth.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Earth.Orbit);
+
+		this.Mars.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 6.8, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Mars.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Mars.Orbit);
+
+		this.Jupiter.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 7.778, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Jupiter.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Jupiter.Orbit);
+
+		this.Saturn.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 9.552, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Saturn.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Saturn.Orbit);
+
+		this.Uranus.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 10.92, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Uranus.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Uranus.Orbit);
+
+		this.Neptune.Orbit = new THREE.Mesh(
+			new THREE.TorusGeometry( 13, 0.01, 3, 50 ),
+			new THREE.MeshBasicMaterial({color: 0xB2BEB5})
+		);
+		this.Neptune.Orbit.rotation.x = Math.PI/2;
+      scene.add(this.Neptune.Orbit);
+		
+      
+
 
     }
 
