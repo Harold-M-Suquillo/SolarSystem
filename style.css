@@ -1,14 +1,24 @@
-* {
+/** {
   margin: 0;
   padding:0;
   box-sizing: border-box;
 }
 
-
-
-
-
-html, body{
-  overflow: hidden;
+main{
+  color: white;
+  position: absolute;
 }
+*/
+
+canvas{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+main{
+  color: white;
+  position: absolute;
+}
+
+
 

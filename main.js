@@ -28,7 +28,8 @@ class Scene{
     //const camera = new THREE.OrthographicCamera(-(this.sizes.width / this.sizes.height),this.sizes.width / this.sizes.height, 1, -1, 0.1, 1000);
     const camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 100)
     camera.position.z = 10;
-    camera.position.y = 3
+    camera.position.y = 4;
+    camera.position.x = -3;
     this.scene.add(camera);
     return camera;
   }
@@ -36,30 +37,31 @@ class Scene{
 
   // Create and add AxesHelper to scene
   _CreateAxesHelper(){
-    this.scene.add(new THREE.AxesHelper(1.3));
+    this.scene.add(new THREE.AxesHelper(3));
   }
 
+  // TODO ---------- Add Circular Lines
   // Create and configure controls
   _CreateControls(){
     const controls = new OrbitControls(this.camera, this.canvas);
-    //controls.autoRotate = true;
+    controls.autoRotate = true;
     controls.enableDamping;
-    controls.enablePan = false;
+    //controls.enablePan = false;
     controls.minDistance = 1.7;
     controls.maxDistance = 20;
-    //this.camera.position.set( 0, 14, 1);
+    //this.camera.position.set( 0, 4, 10);      // The default position for the camera
     return controls;
 
   }
 
 
-  // Create and COnfigure renderer
+  // Create and Configure renderer
   _CreateRenderer(){
     const renderer = new THREE.WebGLRenderer({
       canvas: this.canvas
     })
-    renderer.setSize(this.sizes.width, this.sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setSize(this.sizes.width, this.sizes.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     return renderer;
   }
 
@@ -79,7 +81,7 @@ class Scene{
 
     // Update renderer
     this.renderer.setSize(this.sizes.width, this.sizes.height)
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   }
   tick(){
