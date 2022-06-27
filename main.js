@@ -1,8 +1,18 @@
 import '/style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import {Planets} from '/js/planets.js';
+import {SolarSystem} from '/js/SolarSystem.js';
 
+
+/* 
+TODO: 
+  1) Create Stars
+  2) Add animation toSolarSystem
+  3) HTML menu
+    - Planet selector
+    - Planet Facts
+  4) Add weather for Mars (API)
+*/
 class Scene{
   constructor(){
     this.sizes = {
@@ -11,51 +21,39 @@ class Scene{
     };
     this.canvas = document.querySelector('canvas.webgl');
     this.scene = new THREE.Scene();
-    this.planets = new Planets(this.scene);                    // init Planets and orbits
+    // init SolarSystem and orbits
+    this.SolarSystem = new SolarSystem(this.scene);
     this.camera = this._CreateCamera();
     this.controls = this._CreateControls();
     this.renderer = this._CreateRenderer();
  
-    // Create AxesHelper
-    this._CreateAxesHelper();
     // Resize screen Event
     window.addEventListener('resize', this._ResizeScreen.bind(this));
-
-
+    this.animate();
   }
-
 
   // Create, position, and add camera to scene
   _CreateCamera(scene){
-    //const camera = new THREE.OrthographicCamera(-(this.sizes.width / this.sizes.height),this.sizes.width / this.sizes.height, 1, -1, 0.1, 1000);
-    const camera = new THREE.PerspectiveCamera(30, this.sizes.width / this.sizes.height, 0.1, 50)
-    camera.position.z = 10;
-    camera.position.y = 4;
-    camera.position.x = -3;
+    const camera = new THREE.PerspectiveCamera(30, this.sizes.width / this.sizes.height, 0.1, 55);
+    camera.position.set(-3,4,10);
     this.scene.add(camera);
     return camera;
   }
 
-
-  // Create and add AxesHelper to scene
-  _CreateAxesHelper(){
-    this.scene.add(new THREE.AxesHelper(3));
+  CreateAxesHelper(size){
+    this.scene.add(new THREE.AxesHelper(size));
   }
 
-  // TODO ---------- Add Circular Lines
   // Create and configure controls
   _CreateControls(){
     const controls = new OrbitControls(this.camera, this.canvas);
-    controls.autoRotate = true;                                     // ----------------------------------------
+    //controls.autoRotate = true;                                     // ----------------------------------------
     controls.enableDamping;
     //controls.enablePan = false;
-    controls.minDistance = 5;
-    controls.maxDistance = 35;
-    //this.camera.position.set( 0, 4, 10);      // The default position for the camera
+    controls.minDistance = 3;
+    controls.maxDistance = 40;
     return controls;
-
   }
-
 
   // Create and Configure renderer
   _CreateRenderer(){
@@ -67,18 +65,12 @@ class Scene{
     return renderer;
   }
 
+  // Updates the 
   _ResizeScreen(event){
-    // Update sizes
+    // Update the camera
     this.sizes.width = window.innerWidth;
     this.sizes.height = window.innerHeight;
-
-
-    // ASPECT CAMERA
-    this.camera.aspect = this.sizes.width / this.sizes.height;
-
-    // Update the Camera
-    //this.camera.left =  -(this.sizes.width / this.sizes.height);
-    //this.camera.right = this.sizes.width / this.sizes.height;
+    this.camera.aspect = this.sizes.width / this.sizes.height; // Aspect ratio
     this.camera.updateProjectionMatrix();
 
     // Update renderer
@@ -86,23 +78,16 @@ class Scene{
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   }
-  tick(){
+  animate(){
     this.controls.update();
-  
-    //planets.Earth.position.y = -4;
-    //this.camera.lookAt(this.planets.Earth.position);
-  
-    // Render
     this.renderer.render(this.scene, this.camera);
-  
     // Call tick again on the next frame
-    window.requestAnimationFrame(this.tick.bind(this));
+    window.requestAnimationFrame(this.animate.bind(this));
   }
-
-
 }
 
+
 // Create the Scene
-let SolarSystem = new Scene();
-SolarSystem.tick();
+const scene = new Scene();
+scene.CreateAxesHelper(2);
 
