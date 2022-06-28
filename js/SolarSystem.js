@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import gsap from 'gsap';
 
 export class SolarSystem{
 	/*
@@ -20,8 +21,13 @@ export class SolarSystem{
 		this.Saturn = {};
 		this.Uranus = {};
 		this.Neptune = {};
-		this.initPlanets(scene);
-   	this.initOrbits(scene);
+		this.initPlanets(scene.scene);
+		this.scene = scene;
+		this.PrevPlanet = null;
+
+		// Keep track of the planet currently in 
+   	this.initOrbits(scene.scene);
+		document.getElementById("planet-select").addEventListener("change", this._SelectPlanet.bind(this));
 	}
 
     // Create and add planets to scene
@@ -42,10 +48,10 @@ export class SolarSystem{
 
 	 // Planet constructor
 	 _PlanetConstructor(scene, textureLoader, planet, img, geo, pos){
-		 const texture = textureLoader.load(img);
-		 planet.Planet = new THREE.Mesh(
-      	new THREE.SphereGeometry(geo[0], geo[1], geo[2]), 
-         new THREE.MeshBasicMaterial({ map:texture}));
+		const texture = textureLoader.load(img);
+		planet.Planet = new THREE.Mesh(
+      		new THREE.SphereGeometry(geo[0], geo[1], geo[2]), 
+        	new THREE.MeshBasicMaterial({ map:texture}));
 		planet.Planet.position.set(pos[0], pos[1], pos[2]);
 		scene.add(planet.Planet);
 	 }
@@ -71,7 +77,7 @@ export class SolarSystem{
 
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(-6.5,0,-7);
-      mesh.scale.set(.1,.1,.1)
+      mesh.scale.set(.1,.1,1)
 
       var axis = new THREE.Vector3(1,1,1);
       mesh.rotateOnAxis(axis, 5);
@@ -98,5 +104,52 @@ export class SolarSystem{
 		);
 		planet.Orbit.rotation.x = Math.PI/2;
       scene.add(planet.Orbit);
+	 }
+
+	 _SelectPlanet(event){
+		const SelectedPlanet = this[event.target.value];
+
+		// If there is a previous planet move it back 
+		if (this.PrevPlanet != null){
+			this.PrevPlanet.Planet.position.y = 0;
+			this.Saturn.Rings.position.y = 0;	// Special case			
+		}
+	
+		// change the PLanet title
+		document.getElementById("planet-title").textContent = event.target.value;
+
+		switch (event.target.value){
+			
+			case "Sun":
+				this.scene.camera.position.set(-3,4,10);
+				this.scene.controls.target.set(0,0,0);
+				this.scene.controls.minDistance = 30;
+				gsap.to(this.scene.controls, {minDistance: 6, duration: 1.5});
+				this.scene.controls.maxDistance = 8;
+				break;
+			
+			
+			case "Solar-System":
+				this.scene.camera.position.set(-3,4,10);
+				this.scene.controls.target.set(0,0,0);
+				gsap.to(this.scene.controls, {minDistance: 35, duration: 1});
+				this.scene.controls.maxDistance = 45;
+				break;
+			
+			default:
+				if (SelectedPlanet == this.Saturn){
+					this.Saturn.Rings.position.y = -8;
+				}
+				// Move the planet downward
+				SelectedPlanet.Planet.position.y = -8;
+				// Change the camera target
+				this.scene.controls.target.set(SelectedPlanet.Planet.position.x, -8, SelectedPlanet.Planet.position.z)
+				this.scene.controls.minDistance = 6;
+				// Chnage the camera positioning
+				gsap.to(this.scene.controls, {minDistance: 2, duration: 1});
+				this.scene.controls.maxDistance = 3;
+		}
+		// Keep track of the previous planet
+		this.PrevPlanet = SelectedPlanet;
 	 }
 }

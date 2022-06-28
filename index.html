@@ -7,8 +7,36 @@
     <title>Vite App</title>
   </head>
   <body>
-    <canvas class="webgl"></canvas>
+    
+    <canvas class="webgl" style="cursor: grab;"></canvas>
+    <main>
+		<div id="header-container">
+			<form>
+				<label for="planet-select"></label>
+				<select name="Planet" id="planet-select">
+					<option value="Solar-System">Solar System</option>
+					 <option value="Sun">Sun</option>
+					 <option value="Mercury">Mercury</option>
+					 <option value="Venus">Venus</option>
+					 <option value="Earth">Earth</option>
+					 <option value="Mars">Mars</option>
+					 <option value="Jupiter">Jupiter</option>
+					 <option value="Saturn">Saturn</option>
+					 <option value="Uranus">Uranus</option>
+					 <option value="Neptune">Neptune</option>
+				</select>
+			</form>
 
+			<h1 id="planet-title" class="glow">Solar-System</h1>
+
+			<div id="fact">
+				<p>Hello world</p>
+			</div>
+
+
+		</div>
+
+    </main>
    
 
 

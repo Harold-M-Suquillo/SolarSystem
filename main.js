@@ -2,6 +2,7 @@ import '/style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {SolarSystem} from '/js/SolarSystem.js';
+import gsap from 'gsap';
 
 
 /* 
@@ -22,7 +23,7 @@ class Scene{
     this.canvas = document.querySelector('canvas.webgl');
     this.scene = new THREE.Scene();
     // init SolarSystem and orbits
-    this.SolarSystem = new SolarSystem(this.scene);
+    this.SolarSystem = new SolarSystem(this);
     this.camera = this._CreateCamera();
     this.controls = this._CreateControls();
     this.renderer = this._CreateRenderer();
@@ -30,11 +31,14 @@ class Scene{
     // Resize screen Event
     window.addEventListener('resize', this._ResizeScreen.bind(this));
     this.animate();
+
+
+    console.log(this.SolarSystem);
   }
 
   // Create, position, and add camera to scene
   _CreateCamera(scene){
-    const camera = new THREE.PerspectiveCamera(30, this.sizes.width / this.sizes.height, 0.1, 55);
+    const camera = new THREE.PerspectiveCamera(30, this.sizes.width / this.sizes.height, 0.1, 80);
     camera.position.set(-3,4,10);
     this.scene.add(camera);
     return camera;
@@ -47,10 +51,11 @@ class Scene{
   // Create and configure controls
   _CreateControls(){
     const controls = new OrbitControls(this.camera, this.canvas);
-    //controls.autoRotate = true;                                     // ----------------------------------------
+    controls.autoRotate = true;                                     // ----------------------------------------
     controls.enableDamping;
     //controls.enablePan = false;
-    controls.minDistance = 3;
+	 
+    gsap.to(controls, {minDistance: 35, duration: 1});
     controls.maxDistance = 40;
     return controls;
   }
@@ -83,11 +88,20 @@ class Scene{
     this.renderer.render(this.scene, this.camera);
     // Call tick again on the next frame
     window.requestAnimationFrame(this.animate.bind(this));
+
+
+
+
+
   }
 }
 
 
 // Create the Scene
 const scene = new Scene();
-scene.CreateAxesHelper(2);
+//scene.CreateAxesHelper(2);
+
+
+
+
 
