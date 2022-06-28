@@ -1,7 +1,9 @@
-@font-face {
-  font-family: ImportedFont;
-  src: url("/fonts/AstroSpace-0Wl3o.otf");
+
+/*Deal with loading rendering*/
+html {
+  background-color: black;
 }
+
 
 * {
   margin: 0;
@@ -92,7 +94,7 @@ table{
   margin-left: .2rem;
 }
 
-#SolarSystem,
+#Solar-System,
 #Sun, 
 #Mercury, 
 #Venus, 

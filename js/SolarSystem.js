@@ -23,12 +23,15 @@ export class SolarSystem{
 		this.Neptune = {};
 		this.initPlanets(scene.scene);
 		this.scene = scene;
-		this.PrevPlanet = null;
-
 		// Keep track of the planet currently in 
    	this.initOrbits(scene.scene);
+
+		// Starting value
+		this.PrevPlanet = "Solar-System";
+		document.getElementById("Solar-System").style.display = "table";
 		document.getElementById("planet-select").addEventListener("change", this._SelectPlanet.bind(this));
 	}
+
 
     // Create and add planets to scene
 	initPlanets(scene){
@@ -110,13 +113,24 @@ export class SolarSystem{
 		const SelectedPlanet = this[event.target.value];
 
 		// If there is a previous planet move it back 
-		if (this.PrevPlanet != null){
-			this.PrevPlanet.Planet.position.y = 0;
+		if (this.PrevPlanet != "Solar-System" && this.PrevPlanet != "Sun"){
+			this[this.PrevPlanet].Planet.position.y = 0;
 			this.Saturn.Rings.position.y = 0;	// Special case			
 		}
+
+		// Hide the previous fact and show the new fact
+		document.getElementById(this.PrevPlanet).style.display = "none";
+		document.getElementById(event.target.value).style.display = "table";
+		
+
+
+
 	
 		// change the PLanet title
 		document.getElementById("planet-title").textContent = event.target.value;
+
+		// Get ride of the previous planet fact and add the new fact
+		//document.getElementById("Solar-System").style.display = "table";
 
 		switch (event.target.value){
 			
@@ -150,6 +164,6 @@ export class SolarSystem{
 				this.scene.controls.maxDistance = 3;
 		}
 		// Keep track of the previous planet
-		this.PrevPlanet = SelectedPlanet;
+		this.PrevPlanet = event.target.value;
 	 }
 }
