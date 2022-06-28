@@ -50,7 +50,7 @@ export class SolarSystem{
 	 _PlanetConstructor(scene, textureLoader, planet, img, geo, pos){
 		const texture = textureLoader.load(img);
 		planet.Planet = new THREE.Mesh(
-      		new THREE.SphereGeometry(geo[0], geo[1], geo[2]), 
+      	new THREE.SphereGeometry(geo[0], geo[1], geo[2]), 
         	new THREE.MeshBasicMaterial({ map:texture}));
 		planet.Planet.position.set(pos[0], pos[1], pos[2]);
 		scene.add(planet.Planet);

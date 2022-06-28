@@ -1,43 +1,25 @@
-/*
-
-main{
-  color: white;
-  position: absolute;
-}
-*/
 @font-face {
   font-family: ImportedFont;
   src: url("/fonts/AstroSpace-0Wl3o.otf");
 }
 
-
 * {
   margin: 0;
   padding:0;
   box-sizing: border-box;
-
-
 }
-
 
 canvas{
   position: fixed;
   top: 0;
   left: 0;
 }
-main{
-  border: 2px solid red;
-  border: 2px solid blue;
-}
-
-
-
 
 /* Modify the form */
 form{
   position: absolute;
-  margin-left: 1rem;
-  margin-top: 2.5rem;
+  margin-left: 1.5rem;
+  margin-top: 2.4rem;
   z-index: 2;
   width: 10rem;
 }
@@ -47,13 +29,11 @@ select{
   padding: .4rem .8rem;
   font-weight: 550;
   font-size: 1.03rem;
-
 }
+
 select:focus {
-  outline:none;
-  
+  outline:none;  
 }
-
 
 /* The title fo the planet*/
 #planet-title{
@@ -63,7 +43,6 @@ select:focus {
   top: 0;
   width: 100%;
   margin-top: 2rem;
-  border: 2px solid green;
   font-family: ImportedFont;
   font-size: 3rem;
   text-shadow:
@@ -72,11 +51,6 @@ select:focus {
     0 0 42px #0fa,
     0 0 92px #0fa,
     0 0 110px #0fa;
-
-
-
-
-
 }
 
 /*Modify dropdown and Title*/
@@ -89,7 +63,6 @@ select:focus {
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 
-    border: 2px solid red !important;
   }
 }
 
@@ -100,19 +73,35 @@ select:focus {
 #fact{
   position: fixed;
   bottom: 0;
-  width: 100%;
-  border: 2px solid green;
   color: white;
 }
 
 
-
 #header-container{
   position: relative;
-  border: 2px solid blue;
   width: 100%;
 }
 
+.row-header{
+  text-align: left;
+  width: 10rem;
+}
 
+table{
+  margin-bottom: .2rem;
+  margin-left: .2rem;
+}
 
+#SolarSystem,
+#Sun, 
+#Mercury, 
+#Venus, 
+#Earth,
+#Mars,
+#Jupiter,
+#Saturn,
+#Uranus,
+#Neptune{
+  display: none;
+}
 

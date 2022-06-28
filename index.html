@@ -11,9 +11,9 @@
     <canvas class="webgl" style="cursor: grab;"></canvas>
     <main>
 		<div id="header-container">
-			<form>
+			<form >
 				<label for="planet-select"></label>
-				<select name="Planet" id="planet-select">
+				<select name="Planet" id="planet-select" style="cursor: pointer;">
 					<option value="Solar-System">Solar System</option>
 					 <option value="Sun">Sun</option>
 					 <option value="Mercury">Mercury</option>
@@ -30,21 +30,203 @@
 			<h1 id="planet-title" class="glow">Solar-System</h1>
 
 			<div id="fact">
-				<p>Hello world</p>
+				<table id="SolarSystem">
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.571 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Location</th>
+						<td>Milky Way</td>
+					</tr>
+					<tr>
+						<th class="row-header">Diameter</th>
+						<td>287.46 Billion km</td>
+					</tr>
+					<tr>
+						<th class="row-header">Planets</th>
+						<td>8</td>
+					</tr>
+				</table>
+
+				<table id="Sun">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>1.9989 x 10<sup>30</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.603 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Surface temperature</th>
+						<td>5,778 K</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>274 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+				<table id="Mercury">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>3.285 x 10<sup>23</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.503 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>88 Days</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>3.7 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+
+				<table id="Venus">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>4.867 x 10<sup>24</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.503 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>225 Days</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>8.87 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+
+				<table id="Earth">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>5.972 x 10<sup>24</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.543 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>365 Days</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>9.8 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+
+				<table id="Mars">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>6.39 x 10<sup>23</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.603 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>687 Days</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>3.721 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+				<table id="Jupiter">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>1.898 x 10<sup>27</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.603 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>12 Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>24.79 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+				<table id="Saturn">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>5.683 x 10<sup>26</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.503 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>29 Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>10.44 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+				<table id="Uranus">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>8.681 x 10<sup>25</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.503 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>84 Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>8.87 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
+				<table id="Neptune">
+					<tr>
+						<th class="row-header">Mass</th>
+						<td>1.024 x 10<sup>26</sup> kg</td>
+					</tr>
+					<tr>
+						<th class="row-header">Age</th>
+						<td>4.503 Billion Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Orbital Period</th>
+						<td>165 Years</td>
+					</tr>
+					<tr>
+						<th class="row-header">Gravity</th>
+						<td>11.15 m/s<sup>2</sup></td>
+					</tr>
+				</table>
+
 			</div>
-
-
 		</div>
-
     </main>
    
-
-
-
-
-
-
-
     <script type="module" src="/main.js"></script>
   </body>
 </html>
